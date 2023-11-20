@@ -1,9 +1,7 @@
-import './app.scss'
-import Login from './pages/login/Login.jsx'
 function App() {
-  return <div>
-    <Login />
-  </div>;
+  return (
+    <div>Home</div>
+  );
 }
 
 export default App;
