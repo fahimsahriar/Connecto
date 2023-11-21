@@ -1,6 +1,10 @@
 import "./login.scss";
 import { Link } from "react-router-dom"
 
+const handleLogin = ()=>{
+  console.log("hello");
+}
+
 function Login() {
   return (
     <div className='login'>
@@ -18,7 +22,9 @@ function Login() {
           <form>
             <input type='text' placeholder='username' />
             <input type='password' placeholder='password' />
-            <button>Login</button>
+            <Link to={"/home"}>
+              <button onClick={handleLogin}>Login</button>
+            </Link>
           </form>
         </div>
       </div>

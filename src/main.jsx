@@ -10,12 +10,13 @@ import Leftbar from './components/leftbar/Leftbar.jsx'
 import Rightbar from './components/rightbar/Rightbar.jsx'
 import Home from './pages/home/Home.jsx'
 import Profile from './pages/profile/Profile.jsx'
-
+import { useEffect } from "react";
 let loggedIn = true;
 
 const ProtectedLayout = ({children}) => {
+  // const [loggedIn, setLoggedIn] = useEffect(false);
   if(!loggedIn){
-    return <Navigate to="/login" />
+    return <Navigate to="/register" />
   }
   else {
     return children;
@@ -40,17 +41,8 @@ const Layout = () => {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <ProtectedLayout><Layout /></ProtectedLayout>,
-    children: [
-      {
-        path: "/",
-        element: <Home />
-      },
-      {
-        path: "/profile/:id",
-        element: <Profile />
-      }
-    ]
+    element: <Login />,
+    
   },
   {
     path: "/login",
@@ -59,6 +51,20 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/home",
+    element: <ProtectedLayout><Layout /></ProtectedLayout>,
+    children: [
+      {
+        path: "",
+        element: <Home />
+      },
+      // {
+      //   path: "/profile/:id",
+      //   element: <Profile />
+      // }
+    ]
   },
 ]);
 

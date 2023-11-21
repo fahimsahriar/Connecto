@@ -29,7 +29,6 @@
           align-items: center;
           gap: 10px;
           position: relative;
-          border: 1px solid black;
           img {
             width: 30px;
             height: 30px;
@@ -41,8 +40,8 @@
             border-radius: 50%;
             background-color: limegreen;
             position: absolute;
-            top: 0;
-            left: 30px;
+            top: 12px;
+            left: 18px;
           }
           span {
             color: #000;

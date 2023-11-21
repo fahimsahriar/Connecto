@@ -4,6 +4,7 @@ function Rightbar() {
   return (
     <div className='rightbar'>
       <div className="container">
+        {/* friend suggestion */}
         <div className="item">
           <span>Suggestion For You</span>
           <div className="user">
@@ -49,7 +50,49 @@ function Rightbar() {
         </div>
         {/* online friend */}
         <div className="item">
-          <span>Latest activites</span>
+          <span>Active People</span>
+          <div className="user">
+            <div className="userInfo">
+              <img src="/images/login.jpg" alt="" />
+              <div className='online'></div>
+              <span>John Wick</span>
+            </div>
+          </div>
+          <div className="user">
+            <div className="userInfo">
+              <img src="/images/login.jpg" alt="" />
+              <div className='online'></div>
+              <span>John Wick</span>
+            </div>
+          </div>
+          <div className="user">
+            <div className="userInfo">
+              <img src="/images/login.jpg" alt="" />
+              <div className='online'></div>
+              <span>John Wick</span>
+            </div>
+          </div>
+          <div className="user">
+            <div className="userInfo">
+              <img src="/images/login.jpg" alt="" />
+              <div className='online'></div>
+              <span>John Wick</span>
+            </div>
+          </div>
+          <div className="user">
+            <div className="userInfo">
+              <img src="/images/login.jpg" alt="" />
+              <div className='online'></div>
+              <span>John Wick</span>
+            </div>
+          </div>
+          <div className="user">
+            <div className="userInfo">
+              <img src="/images/login.jpg" alt="" />
+              <div className='online'></div>
+              <span>John Wick</span>
+            </div>
+          </div>
           <div className="user">
             <div className="userInfo">
               <img src="/images/login.jpg" alt="" />
