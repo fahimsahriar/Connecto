@@ -1,34 +1,40 @@
-.leftbar{
+@import "../../main.scss";
+.leftbar {
+  @include themify($themes) {
+    background-color: themed("bg");
+    color: themed("textColor");
     position: sticky;
     top: 70px;
     flex: 2;
     height: calc(100vh - 70px);
     overflow: scroll;
-    &::-webkit-scrollbar{
-        display: none;
+    &::-webkit-scrollbar {
+      display: none;
     }
-    .container{
-        padding: 20px;
-        .menu{
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            .item{
-                display: flex;
-                align-items: center;
-                gap: 20px;
-                img{
-                    width: 30px;
-                    height: 30px;
-                }
-                span{}
-            }
+    .container {
+      padding: 20px;
+      .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        .item {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          img {
+            width: 30px;
+            height: 30px;
+          }
+          span {
+          }
         }
-        hr{
-            margin: 20px 0px;
-            border: none;
-            height: 0.5px;
-            background-color: lightgray;
-        }
+      }
+      hr {
+        margin: 20px 0px;
+        border: none;
+        height: 0.5px;
+        background-color: themed("border");
+      }
     }
+  }
 }

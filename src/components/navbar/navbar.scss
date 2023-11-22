@@ -1,51 +1,59 @@
-.navbar{
+@import "../../main.scss";
+
+.navbar {
+  @include themify($themes) {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
     height: 49px;
-    border-bottom: 1px solid lightgrey;
+    border-bottom: 1px solid themed("border");
     position: sticky;
     top: 0;
-    background-color: white;
-    .left{
+    background-color: themed("bg");
+    color: themed("textColor");
+    .left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      span {
+        font-weight: bold;
+        font-size: 20px;
+        color: themed("logo");
+      }
+      .search {
         display: flex;
         align-items: center;
-        gap: 20px;
-        span{
-            font-weight: bold;
-            font-size: 20px;
-            color: #265073;
-        }
-        .search{
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border: 1px solid lightgrey;
-            padding: 5px;
-            border-radius: 3px;
+        gap: 10px;
+        border: 1px solid themed("border");
+        padding: 5px;
+        border-radius: 3px;
 
-            input{
-                border: none;
-                width: 300px;
-            }
+        input {
+          border: none;
+          width: 300px;
+          background: transparent;
+          color: themed("textColor");
         }
+      }
     }
-    .right{
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      .user {
         display: flex;
         align-items: center;
-        gap: 20px;
-        .user{
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            img{
-                width: 30px;
-                height: 30px;
-                object-fit: cover;
-                border-radius: 50%;
-            }
-            span{}
+        gap: 10px;
+        img {
+          width: 30px;
+          height: 30px;
+          object-fit: cover;
+          border-radius: 50%;
         }
+        span {
+        }
+      }
     }
+  }
 }

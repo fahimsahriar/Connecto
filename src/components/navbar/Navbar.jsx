@@ -1,14 +1,17 @@
 import './navbar.scss'
+import React, { useContext } from "react";
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { Link } from "react-router-dom"
-
+import { DarkModeContext } from '../../Context/DarkModeContext';
 function Navbar() {
+  const {darkMode,toggle} = useContext(DarkModeContext);
   return (
     <div className='navbar'>
       <div className="left">
@@ -16,7 +19,11 @@ function Navbar() {
           <span>Connecto</span>
         </Link>
         <HomeOutlinedIcon />
-        <DarkModeOutlinedIcon />
+        {darkMode ? (
+          <WbSunnyOutlinedIcon onClick={toggle} />
+        ) : (
+          <DarkModeOutlinedIcon onClick={toggle} />
+        )}
         <GridViewOutlinedIcon />
         <div className="search">
           <SearchIcon />
