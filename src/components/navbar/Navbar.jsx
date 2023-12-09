@@ -10,8 +10,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { Link } from "react-router-dom"
 import { DarkModeContext } from '../../Context/DarkModeContext';
+import { AuthContext } from '../../Context/AuthContext';
+
 function Navbar() {
   const {darkMode,toggle} = useContext(DarkModeContext);
+  const {currentUser} = useContext(AuthContext);
   return (
     <div className='navbar'>
       <div className="left">
@@ -20,9 +23,9 @@ function Navbar() {
         </Link>
         <HomeOutlinedIcon />
         {darkMode ? (
-          <WbSunnyOutlinedIcon onClick={toggle} />
+          <WbSunnyOutlinedIcon className='darkMode' onClick={toggle} />
         ) : (
-          <DarkModeOutlinedIcon onClick={toggle} />
+          <DarkModeOutlinedIcon className='darkMode' onClick={toggle} />
         )}
         <GridViewOutlinedIcon />
         <div className="search">
@@ -35,8 +38,8 @@ function Navbar() {
         <MailOutlinedIcon />
         <NotificationsNoneIcon />
         <div className='user'>
-          <img src="/images/login.jpg" alt="" />
-          <span>John Wick</span>
+          <img src={currentUser.profilePic} alt="" />
+          <span>{currentUser.name}</span>
         </div>
       </div>
     </div>

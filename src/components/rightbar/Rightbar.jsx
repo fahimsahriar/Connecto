@@ -29,7 +29,7 @@ function Rightbar() {
           </div>
         </div>
         {/* latest activites */}
-        <div className="item">
+        {/* <div className="item">
           <span>Latest activites</span>
           <div className="user">
             <div className="userInfo">
@@ -47,7 +47,7 @@ function Rightbar() {
             </div>
             <span>4 min ago</span>
           </div>
-        </div>
+        </div> */}
         {/* online friend */}
         <div className="item">
           <span>Active People</span>
