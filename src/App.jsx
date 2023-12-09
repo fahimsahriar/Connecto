@@ -19,7 +19,7 @@ import { DarkModeContext } from "./Context/DarkModeContext.jsx";
 
 let loggedIn = true;
 
-const ProtectedLayout = ({ children }) => {
+const ProtectedRoute = ({ children }) => {
   if (!loggedIn) {
     return <Navigate to='/register' />;
   } else {
@@ -42,11 +42,24 @@ const Layout = () => {
     </div>
   );
 };
-
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />,
+    element: (
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/profile/:id",
+        element: <Profile />,
+      },
+    ],
   },
   {
     path: "/login",
@@ -56,25 +69,67 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register />,
   },
-  {
-    path: "/home",
-    element: (
-      <ProtectedLayout>
-        <Layout />
-      </ProtectedLayout>
-    ),
-    children: [
-      {
-        path: "",
-        element: <Home />,
-      },
-      // {
-      //   path: "/profile/:id",
-      //   element: <Profile />
-      // }
-    ],
-  },
 ]);
+
+
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: (
+//       <ProtectedLayout>
+//         <Layout />
+//       </ProtectedLayout>
+//     ),
+//     children: [
+//       {
+//         path: "/",
+//         element: <Home />,
+//       },
+//       {
+//         path: "/profile/:id",
+//         element: <Profile />,
+//       },
+//     ],
+//   },
+//   {
+//     path: "/login",
+//     element: <Login />,
+//   },
+//   {
+//     path: "/register",
+//     element: <Register />,
+//   }
+//   // {
+//   //   path: "/",
+//   //   element: <Home />,
+//   // },
+//   // // {
+//   // //   path: "/login",
+//   // //   element: <Login />,
+//   // // },
+//   // // {
+//   // //   path: "/register",
+//   // //   element: <Register />,
+//   // // },
+//   // {
+//   //   path: "/",
+//   //   element: (
+//   //     <ProtectedLayout>
+//   //       <Layout />
+//   //     </ProtectedLayout>
+//   //   ),
+//   //   children: [
+//   //     {
+//   //       path: "",
+//   //       element: <Home />,
+//   //     },
+//   //     {
+//   //       path: "/profile/:id",
+//   //       element: <Profile />
+//   //     }
+//     ],
+//   },
+// ]);
 function App() {
   return (
     <RouterProvider router={router} />

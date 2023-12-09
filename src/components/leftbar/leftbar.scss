@@ -8,6 +8,11 @@
     flex: 2;
     height: calc(100vh - 70px);
     overflow: scroll;
+
+    @include mobile{
+      display: none;
+    }
+
     &::-webkit-scrollbar {
       display: none;
     }

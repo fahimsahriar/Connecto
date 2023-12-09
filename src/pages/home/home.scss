@@ -4,4 +4,8 @@
     background-color: themed("bgSoft");
     padding: 20px 60px;
   }
+
+  @include mobile{
+    padding: 10px !important;
+  }
 }
