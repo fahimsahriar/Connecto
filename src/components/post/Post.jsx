@@ -33,7 +33,7 @@ function Post({ post }) {
         </div>
         <div className="content">
           <p>{post.description}</p>
-          <img src={post.img} alt="" />
+          <img src={`images/${post.img}`} alt="" />
         </div>
         <div className="info">
           <div className="item">
@@ -49,7 +49,7 @@ function Post({ post }) {
             Share
           </div>
         </div>
-        {commentOpen && <Comments />}
+        {commentOpen && <Comments postId = {post.id} />}
       </div>
     </div>
   );
