@@ -1,56 +1,26 @@
 import React from "react";
 import "./posts.scss";
-import Post from '../post/Post.jsx';
+import Post from "../post/Post.jsx";
+import { useQuery } from "@tanstack/react-query";
+import { makeRequest } from "../../axios.jsx";
+import { createContext, useEffect, useState } from "react";
 
 function Posts() {
-
-    const posts = [
-        {
-            id:1,
-            name: "Fahim",
-            userId: 1,
-            profilePic: "../../../public/images/login.jpg",
-            desc: "Social  design using React, HTML, and CSS. React social media app using React Hooks, Context API, Dark Mode, Responsive design",
-            pic: "../../../public/images/register.jpg"
-        },
-        {
-            id:2,
-            name: "Fahim",
-            userId: 2,
-            profilePic: "../../../public/images/1.png",
-            desc: "Social  design using React, HTML, and CSS. React social media app using React Hooks, Context API, Dark Mode, Responsive design",
-            pic: "../../../public/images/register.jpg"
-        },
-        {
-            id:3,
-            name: "Fahim",
-            userId: 3,
-            profilePic: "../../../public/images/1.png",
-            desc: "Social  design using React, HTML, and CSS. React social media app using React Hooks, Context API, Dark Mode, Responsive design",
-            pic: "../../../public/images/register.jpg"
-        },
-        {
-            id:4,
-            name: "Fahim",
-            userId: 4,
-            profilePic: "../../../public/images/1.png",
-            desc: "Social  design using React, HTML, and CSS. React social media app using React Hooks, Context API, Dark Mode, Responsive design",
-            pic: "../../../public/images/register.jpg"
-        },
-        {
-            id:5,
-            name: "Fahim",
-            userId: 5,
-            profilePic: "../../../public/images/1.png",
-            desc: "Social  design using React, HTML, and CSS. React social media app using React Hooks, Context API, Dark Mode, Responsive design",
-            pic: "../../../public/images/register.jpg"
-        },
-    ];
-  return <div className="post">
-        {posts.map(post=>(
-            <Post key={post.id} post={post}/>
-        ))}
-  </div>;
+  const { isLoading, error, data } = useQuery(["posts"], () =>
+    makeRequest.get("/posts/").then((res) => {
+      return res.data;
+    })
+  );
+  console.log(data);
+  return (
+    <div className='post'>
+      {error
+        ? "Something went wrong!"
+        : isLoading
+        ? "loading"
+        : data.map((post) => <Post post={post} key={post.id} />)}
+    </div>
+  );
 }
 
 export default Posts;

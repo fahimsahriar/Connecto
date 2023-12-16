@@ -10,7 +10,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { Link } from "react-router-dom"
 import { DarkModeContext } from '../../Context/DarkModeContext';
-import { AuthContext } from '../../Context/AuthContext';
+import { AuthContext } from '../../Context/AuthContext.jsx';
 
 function Navbar() {
   const {darkMode,toggle} = useContext(DarkModeContext);
