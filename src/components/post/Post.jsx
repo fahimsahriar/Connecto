@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./post.scss";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
@@ -9,47 +9,108 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Comments from "../comments/Comments";
 import moment from "moment";
+import { makeRequest } from "../../axios.jsx";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { AuthContext } from "../../Context/AuthContext.jsx";
+import PinDropIcon from "@mui/icons-material/PinDrop";
 
-function Post({ post }) {
+function Post({ post, blood }) {
   let liked = true;
+  const queryClient = useQueryClient();
+  const { currentUser } = useContext(AuthContext);
   const [commentOpen, setCommentOpen] = useState(false);
+  const { isLoading, error, data } = useQuery(["likes", post.id], () =>
+    makeRequest.get("/likes?postId=" + post.id).then((res) => {
+      return res.data;
+    })
+  );
+
+  const {
+    isLoading: cm,
+    error: cmerr,
+    data: cmdata,
+  } = useQuery(["comments"], () =>
+    makeRequest.get("/comments?postId=" + post.id).then((res) => {
+      return res.data;
+    })
+  );
+
+  const mutation = useMutation(
+    (liked) => {
+      if (liked) return makeRequest.delete("/likes?postId=" + post.id);
+      return makeRequest.post("/likes", { postId: post.id });
+    },
+    {
+      onSuccess: () => {
+        // Invalidate and refetch
+        queryClient.invalidateQueries(["likes"]);
+      },
+    }
+  );
+
+  const handleLike = () => {
+    mutation.mutate(data.includes(currentUser.id));
+  };
+
   return (
     <div className='post'>
-      <div className='container'>
+      <div className={post.blood? "container2" : "container"}>
         <div className='user'>
           <div className='userInfo'>
-            <img src={post.profilePic} alt='' />
+            <img src={`/images/${post.profilePic}`} alt='' />
             <div className='details'>
               <Link
-                to={`/profile/${post.userId}`}
+                to={`/profile/${post.userid}`}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
-                <div className="name">{post.name}</div>
+                <div className='name'>{post.name}</div>
               </Link>
-              <div className="date">{moment(post.createdAt).fromNow()}</div>
+              <div className='date'>{moment(post.createdAt).fromNow()}</div>
             </div>
           </div>
           <MoreHorizIcon />
         </div>
-        <div className="content">
+        <div className='content'>
+          {post.blood ? (
+            <>
+              <p className='bloodGroup'>Blood Group: {post.bloodGroup}</p>
+              <p className='location'>
+                {" "}
+                <PinDropIcon fontSize='small' /> {post.location}
+              </p>
+            </>
+          ) : (
+            ""
+          )}
           <p>{post.description}</p>
-          <img src={`images/${post.img}`} alt="" />
+          <img src={`/images/${post.img}`} alt='' />
         </div>
-        <div className="info">
-          <div className="item">
-            {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
-            12 Likes
+        <div className='info'>
+          <div className='item'>
+            {isLoading ? (
+              "loading"
+            ) : data.includes(currentUser.id) ? (
+              <FavoriteOutlinedIcon
+                style={{ color: "red" }}
+                onClick={handleLike}
+              />
+            ) : (
+              <FavoriteBorderOutlinedIcon onClick={handleLike} />
+            )}
+            {data?.length} Likes
+            {/* {liked ? <FavoriteOutlinedIcon style={{color:"red"}} /> : <FavoriteBorderOutlinedIcon />}
+            12 Likes */}
           </div>
-          <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
+          <div className='item' onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
-            12 Comments
+            {cmdata?.length} Comments
           </div>
-          <div className="item">
+          <div className='item'>
             <ShareOutlinedIcon />
             Share
           </div>
         </div>
-        {commentOpen && <Comments postId = {post.id} />}
+        {commentOpen && <Comments postId={post.id} />}
       </div>
     </div>
   );

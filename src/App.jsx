@@ -12,21 +12,25 @@ import Leftbar from "./components/leftbar/Leftbar.jsx";
 import Rightbar from "./components/rightbar/Rightbar.jsx";
 import Home from "./pages/home/Home.jsx";
 import Profile from "./pages/profile/Profile.jsx";
+import Blood from "./pages/blood/Blood.jsx";
 import { useEffect } from "react";
 import { DarkModeContext } from "./Context/DarkModeContext.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { AuthContext } from "./Context/AuthContext.jsx";
 
 let loggedIn = true;
 
 const ProtectedRoute = ({ children }) => {
-  if (!loggedIn) {
-    return <Navigate to='/register' />;
+  const { currentUser } = useContext(AuthContext);
+  if (!currentUser) {
+    return <Navigate to='/login' />;
   } else {
     return children;
   }
 };
 
 const Layout = () => {
+
   const { darkMode } = useContext(DarkModeContext);
   const queryClient = new QueryClient();
   return (
@@ -60,6 +64,10 @@ const router = createBrowserRouter([
       {
         path: "/profile/:id",
         element: <Profile />,
+      },
+      {
+        path: "/blood/",
+        element: <Blood />,
       },
     ],
   },

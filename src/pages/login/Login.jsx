@@ -35,7 +35,6 @@ function Login() {
       <div className='card'>
         <div className='left'>
           <h1>Hello World</h1>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. </p>
           <span>Don't have an account?</span>
           <Link to={"/register"}>
             <button>Register</button>

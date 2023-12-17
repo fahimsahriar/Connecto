@@ -6,55 +6,65 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
-const Share = () => {
+const Share = ({ blood }) => {
   const [file, setFile] = useState(null);
   const [description, setDesc] = useState("");
-
-    const upload = async () => {
-      try {
-        const formData = new FormData();
-        formData.append("file", file);
-        const res = await makeRequest.post("/upload", formData);
-        return res.data;
-      } catch (err) {
-        console.log(err);
-      }
-    };
+  const [bloodGroup, setbloodGroup] = useState("");
+  const [location, setlocation] = useState("");
+  
+  const upload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await makeRequest.post("/upload", formData);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const { currentUser } = useContext(AuthContext);
 
-    const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-    const mutation = useMutation(
-      (newPost) => {
-        return makeRequest.post("/posts/add/", newPost);
+  const mutation = useMutation(
+    (newPost) => {
+      return makeRequest.post("/posts/add/", newPost);
+    },
+    {
+      onSuccess: () => {
+        // Invalidate and refetch
+        queryClient.invalidateQueries(["posts"]);
       },
-      {
-        onSuccess: () => {
-          // Invalidate and refetch
-          queryClient.invalidateQueries(["posts"]);
-        },
-      }
-    );
+    }
+  );
 
-    const handleClick = async (e) => {
-      e.preventDefault();
-      let imgUrl = "";
-      if (file) imgUrl = await upload();
-      mutation.mutate({ description, img: imgUrl });
-      setDesc("");
-      setFile(null);
-    };
+  const handleClick = async (e) => {
+    e.preventDefault();
+    let imgUrl = "";
+    if (file) imgUrl = await upload();
+    if(blood){
+      let bloodFlag = 1;
+      mutation.mutate({ description, img: imgUrl, bloodGroup, location, blood:bloodFlag });
+    }else{
+      let bloodFlag = 0;
+      mutation.mutate({ description, img: imgUrl, bloodGroup, location, blood:bloodFlag });
+    }
+    setDesc("");
+    setFile(null);
+  };
 
   return (
     <div className='share'>
       <div className='container'>
         <div className='top'>
           <div className='left'>
-            <img src={currentUser.profilePic} alt='' />
+            <img src={`/images/${currentUser.profilePic}`} alt='' />
             <input
               type='text'
-              placeholder={`What's on your mind`}
+              placeholder={
+                blood ? `Need Blood, Post a Request` : `What's on your mind`
+              }
               onChange={(e) => setDesc(e.target.value)}
               value={description}
             />
@@ -66,6 +76,24 @@ const Share = () => {
           </div>
         </div>
         <hr />
+        {blood ? (
+          <div className='middle'>
+            <div className='blood'>
+              <input
+                type='text'
+                placeholder={"Blood Group"}
+                onChange={(e) => setbloodGroup(e.target.value)}
+              />
+              <input
+                type='text'
+                placeholder={"Enter Location"}
+                onChange={(e) => setlocation(e.target.value)}
+              />
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
         <div className='bottom'>
           <div className='left'>
             <input

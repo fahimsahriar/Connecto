@@ -1,0 +1,19 @@
+.my-component {
+  .heading {
+    color: red;
+    font-size: 2em;
+    margin-bottom: 0.5em;
+    text-align: center;
+  }
+
+  .subheading {
+    color: #666;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 30px 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+}

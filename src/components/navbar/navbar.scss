@@ -70,6 +70,29 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        position: relative;
+        cursor: pointer;
+        .dropdown {
+          position: absolute;
+          top: 100%;
+          right: 0;
+          background-color: white;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          padding: 10px;
+          z-index: 1;
+  
+          a {
+            display: block;
+            margin-bottom: 10px;
+            color: black;
+            text-decoration: none;
+  
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
 
         @include tablet{
           display: none;

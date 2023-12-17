@@ -55,49 +55,14 @@ function Rightbar() {
             <div className="userInfo">
               <img src="/images/login.jpg" alt="" />
               <div className='online'></div>
-              <span>John Wick</span>
+              <span>Fahim Sahirar</span>
             </div>
           </div>
           <div className="user">
             <div className="userInfo">
               <img src="/images/login.jpg" alt="" />
               <div className='online'></div>
-              <span>John Wick</span>
-            </div>
-          </div>
-          <div className="user">
-            <div className="userInfo">
-              <img src="/images/login.jpg" alt="" />
-              <div className='online'></div>
-              <span>John Wick</span>
-            </div>
-          </div>
-          <div className="user">
-            <div className="userInfo">
-              <img src="/images/login.jpg" alt="" />
-              <div className='online'></div>
-              <span>John Wick</span>
-            </div>
-          </div>
-          <div className="user">
-            <div className="userInfo">
-              <img src="/images/login.jpg" alt="" />
-              <div className='online'></div>
-              <span>John Wick</span>
-            </div>
-          </div>
-          <div className="user">
-            <div className="userInfo">
-              <img src="/images/login.jpg" alt="" />
-              <div className='online'></div>
-              <span>John Wick</span>
-            </div>
-          </div>
-          <div className="user">
-            <div className="userInfo">
-              <img src="/images/login.jpg" alt="" />
-              <div className='online'></div>
-              <span>John Wick</span>
+              <span>Monjurul Islam</span>
             </div>
           </div>
         </div>

@@ -49,11 +49,11 @@ const Comments = ({ postId }) => {
         : isLoading
         ? "loading"
         : data.map((comment) => (
-            <div className='comment'>
-              <img src={"/images/" + comment.profilePic} alt='' />
+            <div className='comment' key={comment.id}>
+              <img src={comment.profilePic} alt='' />
               <div className='info'>
                 <span>{comment.name}</span>
-                <p>{comment.desc}</p>
+                <p>{comment.description}</p>
               </div>
               <span className='date'>
                 {moment(comment.createdAt).fromNow()}
