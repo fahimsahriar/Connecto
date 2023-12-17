@@ -118,6 +118,13 @@
             }
           }
         }
+        .deleteIcon{
+          display: flex;
+          button{
+            background-color: themed("bg");
+            color: red;
+          }
+        }
       }
 
       .content {

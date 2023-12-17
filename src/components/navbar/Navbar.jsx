@@ -15,7 +15,7 @@ import { makeRequest } from "../../axios.jsx";
 function Navbar() {
   const navigate = useNavigate();
   const { darkMode, toggle } = useContext(DarkModeContext);
-  const { currentUser, logout } = useContext(AuthContext);
+  const { currentUser, logout, setCurrentUser } = useContext(AuthContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -27,6 +27,7 @@ function Navbar() {
       await logout();
       navigate("/login");
       localStorage.removeItem("user");
+      setCurrentUser(null);
     } catch (err) {
       setErr(err.response.data);
     }

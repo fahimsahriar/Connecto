@@ -65,7 +65,7 @@ function Register() {
         </div>
         <div className='left'>
           <h1>Hello World</h1>
-          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. </p>
+          <p>Thank you for having a social life</p>
           <span>Do you have an account?</span>
           <Link to={"/login"}>
             <button>Login</button>

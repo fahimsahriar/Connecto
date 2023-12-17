@@ -5,13 +5,9 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(
-    localStorage.getItem("darkMode") !== null
+    localStorage.getItem("user") !== null
       ? JSON.parse(localStorage.getItem("user"))
-      : {
-          id: 1,
-          name: "Fahim Sahriar",
-          profilePic: "/images/login.jpg",
-        }
+      : null
   );
   // console.log(localStorage.getItem("user"));
 
@@ -40,7 +36,7 @@ export const AuthContextProvider = ({ children }) => {
   }, [currentUser]);
 
   return (
-    <AuthContext.Provider value={{ currentUser, login, logout }}>
+    <AuthContext.Provider value={{ currentUser, login, logout, setCurrentUser }}>
       {children}
     </AuthContext.Provider>
   );

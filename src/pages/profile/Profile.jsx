@@ -69,7 +69,7 @@ const Profile = () => {
           <div className="profileContainer">
             <div className="uInfo">
               <div className="left">
-                <a href="http://facebook.com">
+                {/* <a href="http://facebook.com">
                   <FacebookTwoToneIcon fontSize="small" />
                 </a>
                 <a href="http://facebook.com">
@@ -83,7 +83,7 @@ const Profile = () => {
                 </a>
                 <a href="http://facebook.com">
                   <PinterestIcon fontSize="small" />
-                </a>
+                </a> */}
               </div>
               <div className="center">
                 <span>{data.name}</span>
@@ -110,8 +110,8 @@ const Profile = () => {
                 )}
               </div>
               <div className="right">
-                <EmailOutlinedIcon />
-                <MoreVertIcon />
+                {/* <EmailOutlinedIcon />
+                <MoreVertIcon /> */}
               </div>
             </div>
             <Posts userId={userId} />

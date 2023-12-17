@@ -15,10 +15,10 @@ import { AuthContext } from "../../Context/AuthContext.jsx";
 import PinDropIcon from "@mui/icons-material/PinDrop";
 
 function Post({ post, blood }) {
-  let liked = true;
   const queryClient = useQueryClient();
   const { currentUser } = useContext(AuthContext);
   const [commentOpen, setCommentOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const { isLoading, error, data } = useQuery(["likes", post.id], () =>
     makeRequest.get("/likes?postId=" + post.id).then((res) => {
       return res.data;
@@ -51,10 +51,25 @@ function Post({ post, blood }) {
   const handleLike = () => {
     mutation.mutate(data.includes(currentUser.id));
   };
+  const deleteMutation = useMutation(
+    (postId) => {
+      return makeRequest.delete("/posts/" + postId);
+    },
+    {
+      onSuccess: () => {
+        // Invalidate and refetch
+        queryClient.invalidateQueries(["posts"]);
+      },
+    }
+  );
+
+  const handleDelete = () => {
+    deleteMutation.mutate(post.id);
+  };
 
   return (
     <div className='post'>
-      <div className={post.blood? "container2" : "container"}>
+      <div className={post.blood ? "container2" : "container"}>
         <div className='user'>
           <div className='userInfo'>
             <img src={`/images/${post.profilePic}`} alt='' />
@@ -68,7 +83,20 @@ function Post({ post, blood }) {
               <div className='date'>{moment(post.createdAt).fromNow()}</div>
             </div>
           </div>
-          <MoreHorizIcon />
+          <div className="deleteIcon">
+            {menuOpen && post.userid === currentUser.id && (
+              <button
+                style={{ border: "none", cursor: "pointer" }}
+                onClick={handleDelete}
+              >
+                delete
+              </button>
+            )}
+            <MoreHorizIcon
+              style={{ cursor: "pointer" }}
+              onClick={() => setMenuOpen(!menuOpen)}
+            />
+          </div>
         </div>
         <div className='content'>
           {post.blood ? (
