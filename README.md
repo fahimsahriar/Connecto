@@ -1,7 +1,5 @@
 # Connecto
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Tried to improve the blood donation community. It is a social media front-end app using React.
 
 ## Available Scripts
 
