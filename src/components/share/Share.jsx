@@ -3,7 +3,7 @@ import Image from "../../../public/images/img.png";
 import Map from "../../../public/images/map.png";
 import Friend from "../../../public/images/friend.png";
 import { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthContext.jsx";
+import { AuthContext } from "../../Context/AuthContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 const Share = ({ blood }) => {
