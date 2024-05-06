@@ -13,7 +13,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const login = async (inputs) => {
     const res = await axios.post(
-      "http://localhost:8800/api/auth/login",
+      "https://connecto-api.onrender.com",
       inputs,
       {
         withCredentials: true,
@@ -24,7 +24,7 @@ export const AuthContextProvider = ({ children }) => {
   };
   const logout = async () => {
     const res = await axios.post(
-      "http://localhost:8800/api/auth/logout",
+      "https://connecto-api.onrender.com",
     );
 
     setCurrentUser(null);
@@ -41,3 +41,5 @@ export const AuthContextProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export default {AuthContext, AuthContextProvider}

@@ -11,7 +11,7 @@ import Comments from "../comments/Comments";
 import moment from "moment";
 import { makeRequest } from "../../axios.jsx";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
-import { AuthContext } from "../../Context/AuthContext.jsx";
+import { AuthContext } from "../../Context/AuthContext";
 import PinDropIcon from "@mui/icons-material/PinDrop";
 
 function Post({ post, blood }) {

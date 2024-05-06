@@ -10,7 +10,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { Link, useNavigate } from "react-router-dom";
 import { DarkModeContext } from "../../Context/DarkModeContext";
-import { AuthContext } from "../../Context/AuthContext.jsx";
+import { AuthContext } from "../../Context/AuthContext";
 import { makeRequest } from "../../axios.jsx";
 function Navbar() {
   const navigate = useNavigate();
