@@ -23,13 +23,19 @@ function Login() {
   //fetching data
   const handleLogin = async (e) => {
     e.preventDefault();
+    // Check if username or password is empty
+    if (!inputs.username || !inputs.password) {
+      setErr("Username and password are required.");
+      return;
+    }
     try {
       await login(inputs);
       navigate("/");
-    } catch (err) {
-      setErr(err.response.data);
+    } catch (error) {
+      setErr(error.message); // Set the error message to be displayed to the user
     }
   };
+
   return (
     <div className='login'>
       <div className='card'>
@@ -56,6 +62,7 @@ function Login() {
               name='password'
               onChange={handleChange}
             />
+            {err && <p>{err}</p>}
             <Link to={"/home"}>
               <button onClick={handleLogin}>Login</button>
             </Link>

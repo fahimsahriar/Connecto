@@ -9,24 +9,39 @@ export const AuthContextProvider = ({ children }) => {
       ? JSON.parse(localStorage.getItem("user"))
       : null
   );
-  // console.log(localStorage.getItem("user"));
+  
+  // Access environment variable
+  const baseUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 
   const login = async (inputs) => {
-    const res = await axios.post(
-      "https://connecto-api.onrender.com",
-      inputs,
-      {
-        withCredentials: true,
+    try {
+      const res = await axios.post(
+        `${baseUrl}/auth/login`,
+        inputs,
+        {
+          withCredentials: true,
+        }
+      );
+  
+      setCurrentUser(res.data);
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        // Handle 404 error specifically (Not Found)
+        throw new Error('User not found.'); // Throw an error to be caught by the login component
+      } else {
+        // Handle other errors
+        //console.error('An error occurred while logging in:', error);
+        // You can also provide feedback to the user here, such as displaying a generic error message
       }
-    );
-
-    setCurrentUser(res.data);
+    }
   };
+  
+  
   const logout = async () => {
     const res = await axios.post(
-      "https://connecto-api.onrender.com",
+      `${baseUrl}/auth/logout`
     );
-
+  
     setCurrentUser(null);
     console.log(res.data);
   };
@@ -42,4 +57,4 @@ export const AuthContextProvider = ({ children }) => {
   );
 };
 
-export default {AuthContext, AuthContextProvider}
+export default {AuthContext, AuthContextProvider};

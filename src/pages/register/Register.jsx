@@ -11,6 +11,7 @@ function Register() {
     name: "",
   });
   const [err, setErr] = useState(null);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -18,14 +19,33 @@ function Register() {
 
   const handleClick = async (e) => {
     e.preventDefault();
-
+    // Check if username, email, name, or password is empty
+    if (!inputs.username || !inputs.password || !inputs.email || !inputs.name) {
+      setErr("Fill the empty fields.");
+      setSuccessMessage(""); // Clear success message if there's an error
+      return;
+    }
     try {
-      await axios.post("https://connecto-api.onrender.com/api/auth/register", inputs);
+      await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/auth/register`, inputs);
+      setSuccessMessage("User registered successfully!");
+      // Clear input fields after successful registration
+      setInputs({
+        username: "",
+        email: "",
+        password: "",
+        name: "",
+      });
+      setErr(""); // Clear error message if registration is successful
     } catch (err) {
-      setErr(err.response.data);
+      if (err.response && err.response.status === 500) {
+        setErr("Internal Server Error. User not created.");
+        setSuccessMessage(""); // Clear success message if there's an error
+      } else {
+        setErr(err.response.data);
+        setSuccessMessage(""); // Clear success message if there's an error
+      }
     }
   };
-  console.log(err);
 
   return (
     <div className='register'>
@@ -37,30 +57,33 @@ function Register() {
               type='text'
               placeholder='Username'
               name='username'
+              value={inputs.username}
               onChange={handleChange}
             />
             <input
               type='email'
               placeholder='Email'
               name='email'
+              value={inputs.email}
               onChange={handleChange}
             />
             <input
               type='text'
               placeholder='Full Name'
               name='name'
+              value={inputs.name}
               onChange={handleChange}
             />
             <input
               type='password'
               placeholder='Password'
               name='password'
+              value={inputs.password}
               onChange={handleChange}
             />
-            {err && err}
+            {err && <p className="error">{err}</p>}
+            {successMessage && <p className="success">{successMessage}</p>}
             <button onClick={handleClick}>Register</button>
-            {/* <Link to={"/login"}>
-            </Link> */}
           </form>
         </div>
         <div className='left'>

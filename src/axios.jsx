@@ -1,10 +1,7 @@
 import axios from "axios";
 
-// export const makeRequest = axios.create({
-//   baseURL: "http://localhost:8800/api/",
-//   withCredentials: true,
-// });
+// Create axios instance with baseURL taken from environment variable
 export const makeRequest = axios.create({
-  baseURL: "https://connecto-api.onrender.com/api/",
+  baseURL: import.meta.env.VITE_REACT_APP_BACKEND_URL,
   withCredentials: true,
 });
